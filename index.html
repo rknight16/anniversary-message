@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>You’ve Got Mail</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+      text-align: center;
+      color: #5c2a2a;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 3em;
+    }
+
+    p {
+      font-size: 1.5em;
+    }
+
+    #mail-screen, #video-screen {
+      display: none;
+    }
+
+    #mail-screen.active, #video-screen.active {
+      display: block;
+    }
+
+    #gif-container {
+      max-width: 320px;
+      margin: 50px auto;
+      cursor: pointer;
+    }
+
+    video {
+      width: 90%;
+      max-width: 600px;
+      margin-top: 30px;
+      border: 5px solid #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 6s infinite;
+      opacity: 0.6;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="click-sound" src="click.mp3"></audio>
+  <div id="hearts"></div>
+
+  <div id="mail-screen" class="active">
+    <h1>You’ve Got Mail!</h1>
+    <p>From Eli, To Liz</p>
+
+    <div id="gif-container">
+      <div class="tenor-gif-embed" data-postid="13511502568735084534" data-share-method="host" data-aspect-ratio="1.31746" data-width="100%">
+        <a href="https://tenor.com/view/tmnt-donatello-lick-envelope-yellow-envelope-tmnt-1987-gif-13511502568735084534">Tmnt Donatello GIF</a> from <a href="https://tenor.com/search/tmnt-gifs">Tmnt GIFs</a>
+      </div>
+      <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+  </div>
+
+  <p style="color:#5c2a2a; font-size:1.3em; margin-top: 20px;">
+    <a href="love-video.html" style="color:#5c2a2a; text-decoration: underline; cursor: pointer;">
+      Click here to continue
+    </a>
+  </p>
+
+  <div id="video-screen">
+    <video id="love-video" controls>
+      <source src="your-video.mp4" type="video/mp4" />
+      Your browser doesn’t support videos.
+    </video>
+  </div>
+
+  <script>
+    const continueText = document.getElementById('continue-text');
+
+continueText.addEventListener('click', () => {
+  clickSound.play();
+  mailScreen.classList.remove('active');
+  videoScreen.classList.add('active');
+  loveVideo.play();
+});
+    const gifContainer = document.getElementById('gif-container');
+    const mailScreen = document.getElementById('mail-screen');
+    const videoScreen = document.getElementById('video-screen');
+    const loveVideo = document.getElementById('love-video');
+    const clickSound = document.getElementById('click-sound');
+
+    gifContainer.addEventListener('click', () => {
+      clickSound.play();
+      mailScreen.classList.remove('active');
+      videoScreen.classList.add('active');
+      loveVideo.play();
+    });
+
+    const heartsContainer = document.getElementById('hearts');
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
